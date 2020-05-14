@@ -68,6 +68,9 @@ public interface IAuthenticationResult {
     @Nullable
     String getTenantId();
 
+    @Nullable
+    String getRefreshToken();
+
     /**
      * Gets the Account.
      *
