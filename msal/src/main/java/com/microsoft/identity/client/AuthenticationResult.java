@@ -24,10 +24,10 @@ package com.microsoft.identity.client;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.microsoft.identity.common.internal.authscheme.TokenAuthenticationScheme;
 import com.microsoft.identity.common.internal.cache.ICacheRecord;
 import com.microsoft.identity.common.internal.dto.AccessTokenRecord;
+import com.microsoft.identity.common.internal.result.ILocalAuthenticationResult;
 
 import java.util.Date;
 import java.util.List;
@@ -42,12 +42,15 @@ public final class AuthenticationResult implements IAuthenticationResult {
     private final String mTenantId;
     private final AccessTokenRecord mAccessToken;
     private final IAccount mAccount;
+    private final String refreshToken;
 
-    AuthenticationResult(@NonNull final List<ICacheRecord> cacheRecords) {
+    AuthenticationResult(@NonNull final ILocalAuthenticationResult localAuthenticationResult) {
+        List<ICacheRecord> cacheRecords = localAuthenticationResult.getCacheRecordWithTenantProfileData();
         final ICacheRecord mostRecentlyAuthorized = cacheRecords.get(0);
         mAccessToken = mostRecentlyAuthorized.getAccessToken();
         mTenantId = mostRecentlyAuthorized.getAccount().getRealm();
         mAccount = AccountAdapter.adapt(cacheRecords).get(0);
+        refreshToken = localAuthenticationResult.getRefreshToken();
     }
 
     @Override
@@ -95,6 +98,12 @@ public final class AuthenticationResult implements IAuthenticationResult {
     @Nullable
     public String getTenantId() {
         return mTenantId;
+    }
+
+    @Nullable
+    @Override
+    public String getRefreshToken() {
+        return refreshToken;
     }
 
     @Override

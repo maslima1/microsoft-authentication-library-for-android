@@ -23,7 +23,6 @@
 package com.microsoft.identity.client;
 
 import androidx.annotation.NonNull;
-
 import com.microsoft.identity.client.exception.MsalDeclinedScopeException;
 import com.microsoft.identity.common.internal.logging.Logger;
 import com.microsoft.identity.common.internal.result.ILocalAuthenticationResult;
@@ -40,7 +39,7 @@ class AuthenticationResultAdapter {
 
     static IAuthenticationResult adapt(@NonNull final ILocalAuthenticationResult localAuthenticationResult) {
         final IAuthenticationResult authenticationResult = new AuthenticationResult(
-                localAuthenticationResult.getCacheRecordWithTenantProfileData()
+                localAuthenticationResult
         );
         return authenticationResult;
     }
