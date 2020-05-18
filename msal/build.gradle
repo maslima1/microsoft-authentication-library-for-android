@@ -144,13 +144,13 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$rootProject.rulesVersion"
     androidTestImplementation "org.mockito:mockito-android:$rootProject.ext.mockitoAndroidVersion"
     // 'local' flavor dependencies
-    localApi(project(":common")) {
+    api(project(":common")) {
         transitive = false
     }
 
     snapshotApi(group: 'com.microsoft.identity', name: 'common', version: '2.0.7-SNAPSHOT', changing: true)
 
-    distApi("com.microsoft.identity:common:2.0.7") {
+    implementation("com.microsoft.identity:common:2.0.7") {
         transitive = false
     }
 }
